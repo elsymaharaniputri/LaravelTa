@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>{{ $title ?? 'USER ADD' }}</title>
+
+    <meta name="description" content="{{ $description ?? '' }}" />
+    {{-- STYLE --}}
+    @include('include.style')
+
+</head>
+
+<body>
+
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+
+            <!-- Menu -->
+
+            @include('include.menu')
+
+            <!-- / Menu -->
+            <!-- Layout container -->
+            <div class="layout-page">
+                <!-- Navbar -->
+
+                @include('include.navbar')
+                <!-- / Navbar -->
+
+
+                <!-- Content wrapper -->
+                <div class="content-wrapper">
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <h4 class="text-center fw-bold text-purple py-3">Form <span class="text-primary"> Add
+                                User</span></h4>
+
+                        <!-- Basic Layout -->
+                        <div class="row">
+
+
+                            <!-- UPLOAD BY USER -->
+
+                            <div class="col-md-8 mx-auto">
+                                <div class="card mb-4">
+
+                                    <div class="card-body">
+                                        <div class="card-header d-flex justify-content-end align-items-center">
+
+                                            <!-- <a href="ujian-list.html" class="btn btn-sm btn-outline-primary">Ujian
+                                                Tersedia</a> -->
+                                            <!-- <small class="text-muted float-end">Merged input group</small> -->
+                                        </div>
+                                        <form class="my-3 mx-auto" action="{{ route('users.userAdd') }}" method="POST">
+                                            @csrf
+                                            <div class="row mx-auto">
+                                                <div class="col-lg-12 col-md-12 mx-auto">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="basic-icon-default-fullname">Nama
+                                                            Lengkap</label>
+
+                                                        <div class="input-group input-group-merge">
+
+                                                            {{-- <input type="text" class="form-control  @error('username') is-invalid @enderror"
+                                                                id="basic-icon-default-fullname"
+                                                                placeholder="Inputkan Nama Sesi Ujian"
+                                                                aria-describedby="basic-icon-default-fullname2" /> --}}
+
+                                                            <input type="text"
+                                                                class="form-control @error('name') is-invalid @enderror"
+                                                                id="name" name="name"
+                                                                value="{{ old('name') }}"
+                                                                placeholder="Inputkan nama anda"
+                                                                aria-describedby="basic-icon-default-fullname2"
+                                                                required>
+
+                                                            @error('name')
+                                                                <div class="alert alert-danger mt-2">{{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label"
+                                                            for="basic-icon-default-company">Tanggal Lahir</label>
+
+                                                        <div class="input-group input-group-merge">
+                                                            <span id="basic-icon-default-company2"
+                                                                class="input-group-text">
+                                                                <i class='bx bx-date'></i>
+                                                            </span>
+                                                            <input
+                                                                class="form-control @error('tgl_lahir') is-invalid @enderror"
+                                                                id="tgl_lahir" name="tgl_lahir" type="date"
+                                                                step="1" value="{{ old('tgl_lahir') }}"
+                                                                placeholder="Pilih Tanggal" id="html5-date-input"
+                                                                required />
+                                                            @error('tgl_lahir')
+                                                                <div class="alert alert-danger mt-2">{{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label"
+                                                            for="basic-icon-default-fullname">Username</label>
+                                                        <div class="input-group input-group-merge">
+                                                            <span id="basic-icon-default-fullname2"
+                                                                class="input-group-text"><i
+                                                                    class="bx bx-user"></i></span>
+                                                            <input type="text"
+                                                                class="form-control @error('username') is-invalid @enderror"
+                                                                id="username" name="username"
+                                                                value="{{ old('username') }}"
+                                                                placeholder="Inputkan username anda" required>
+
+                                                            @error('username')
+                                                                <div class="alert alert-danger mt-2">{{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label"
+                                                            for="basic-icon-default-fullname">Password</label>
+                                                        <div class="input-group input-group-merge">
+                                                            <span id="basic-icon-default-fullname2"
+                                                                class="input-group-text"><i
+                                                                    class="bx bx-key"></i></span>
+                                                            <input type="password"
+                                                                class="form-control @error('password') is-invalid @enderror"
+                                                                id="password" name="password"
+                                                                placeholder="Masukkan password"
+                                                                aria-describedby="password" required>
+                                                            @error('password')
+                                                                <div class="alert alert-danger mt-2">{{ $message }}
+                                                                </div>
+                                                            @enderror
+
+                                                            <span class="input-group-text cursor-pointer"><i
+                                                                    class="bx bx-hide"></i></span>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="basic-icon-default-fullname">
+                                                            Role</label>
+                                                        <div class="input-group input-group-merge ">
+
+
+
+                                                            <select
+                                                                class="form-control @error('id') is-invalid @enderror"
+                                                                name="id_role">
+                                                                <option value="" disabled selected>Pilih Role
+                                                                </option>
+                                                                @foreach ($roles as $role)
+                                                                    <option value="{{ $role->id }}"
+                                                                        {{ old('id') == $role->id ? 'selected' : '' }}>
+                                                                        {{ $role->role }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+
+                                                </div>
+
+
+
+
+                                                <p class="text-start"><small class="text-danger"> <i>*Pastikan item
+                                                            data
+                                                            yang diinputkan sudah valid </i></small></p>
+
+                                            </div>
+
+
+
+
+                                            <div class="d-flex justify-content-center">
+                                                <!-- Tombol untuk membuka modal -->
+                                                <button type="button" class="btn btn-primary w-lg-25"
+                                                    data-bs-toggle="modal" data-bs-target="#modalKirim">
+                                                    Kirim
+                                                </button>
+
+                                                <!-- Modal KONFIRMASI KIRIM-->
+                                                <div class="modal fade" id="modalKirim"
+                                                    aria-labelledby="modalToggleLabel" tabindex="-1"
+                                                    style="display: none" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content ">
+                                                            <div
+                                                                class="modal-header  bg-purple text-center d-flex justify-content-center ">
+                                                                <h5 class="modal-title text-white "
+                                                                    id="modalToggleLabel">Konfirmasi Pengiriman
+                                                                    Data
+                                                                </h5>
+                                                                <button type="button"
+                                                                    class="btn-close position-absolute end-0 me-2"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body text-center">Apakah anda
+                                                                yakin untuk melakukan pengiriman data
+                                                                ?
+                                                            </div>
+                                                            <div class="modal-footer d-flex justify-content-center">
+                                                                <!-- Tombol Batal -->
+                                                                <button type="button" class="btn btn-secondary w-25"
+                                                                    data-bs-dismiss="modal">
+                                                                    Batal
+                                                                </button>
+
+                                                                <!-- Tombol Kirim, submit form -->
+                                                                <button type="submit"
+                                                                    class="btn bg-purple text-white w-25">
+                                                                    Kirim
+                                                                </button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- END MODAL KIRIM -->
+                                            </div>
+
+
+                                        </form>
+                                        <!-- Pesan Error -->
+                                        @if (session('error'))
+                                            <div class="alert alert-danger mt-3">
+                                                {{ session('error') }}</div>
+                                        @endif
+
+                                        <!-- Pesan Sukses -->
+                                        @if (session('success'))
+                                            <div class="alert alert-success mt-3">
+                                                {{ session('success') }}
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- END UP BY USER -->
+
+                        </div>
+
+
+
+                    </div>
+
+
+                    <!-- Footer -->
+                    <footer class="content-footer footer bg-footer-theme">
+                        @include('include.footer')
+                    </footer>
+
+                    <!-- / Footer -->
+                    <div class="content-backdrop fade"></div>
+                </div>
+                <!-- Content wrapper -->
+            </div>
+            <!-- / Layout page -->
+        </div>
+
+    </div>
+    <!-- / Layout wrapper -->
+    {{-- SCRIPT --}}
+    @include('include.script')
+    <!-- JavaScript untuk inisialisasi DataTables dan Filter -->
+    <script>
+        $(document).ready(function() {
+            // Inisialisasi DataTables
+            var table = $('#example').DataTable({
+                "paging": true,
+                "info": true,
+                "ordering": true,
+                "lengthChange": true,
+                "searching": false,
+                // "dom": '<"d-flex justify-content-between"<"top-left"f><"top-right"l>>t<"bottom"ip>',
+                // "language": {
+                //     "lengthMenu": "Show _MENU_ entries"
+                // }
+            });
+        });
+
+        // Event listener for the delete button
+        $(document).on('click', '[data-bs-toggle="modal"][data-bs-target="#deleteModal"]', function() {
+            const itemId = $(this).data('id'); // Get the ID from the data attribute
+            $('#confirmDelete').data('id', itemId); // Store the ID in the confirm button
+        });
+
+        // Event listener for the confirm delete button
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('confirmDelete').addEventListener('click', function() {
+                const itemId = $(this).data('id'); // Get the stored ID
+                // Perform the delete action here (e.g., make an AJAX call to delete the item)
+                alert("Item with ID " + itemId + " deleted!"); // Replace this with your actual delete logic
+                // Optionally, you can hide the modal after confirmation
+                var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+                deleteModal.hide();
+            });
+
+        });
+    </script>
+
+
+</body>
+
+</html>
