@@ -93,25 +93,24 @@
                                             {{-- <td>UMUR</td> --}}
                                             <td>{{ $user->role->role ?? 'Role tidak ditemukan' }}</td>
                                             <td>
-                                                <div class="dropdown">
-                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                        data-bs-toggle="dropdown">
-                                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu">
+                                                <div class="btn-group">
+                                                    <!-- Tombol Edit -->
+                                                    <a href="{{ route('users.edit', $user->id) }}"
+                                                        class="btn btn-sm btn-outline-primary me-1">
+                                                        Edit
+                                                    </a>
 
-                                                        <a class="dropdown-item edit-btn"
-                                                            href="/user/edit/{{ $user->id }}" target="_blank">
-                                                            <i class="bx bx-edit-alt me-1"></i> Edit
-                                                        </a>
-                                                        <a class="dropdown-item" href="javascript:void(0);"
-                                                            data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                            data-id="001-0920">
-                                                            <i class="bx bx-trash me-1"></i> Hapus
-                                                        </a>
-                                                    </div>
-
-
+                                                    <!-- Tombol Hapus -->
+                                                    <form method="POST"
+                                                        action="{{ route('users.destroyUser', $user->id) }}"
+                                                        style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                            onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?')">
+                                                            Hapus
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </td>
 

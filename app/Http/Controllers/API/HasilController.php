@@ -18,7 +18,7 @@ class HasilController extends Controller
         try {
             // Validasi input
             $validator = Validator::make($request->all(), [
-                'image_face' => 'required|image|mimes:jpeg,jpg,png|max:2048', // Pastikan sesuai dengan Flutter
+                'image_face' => 'required|image|mimes:jpeg,jpg,png|max:204800', // Pastikan sesuai dengan Flutter
                 'id_ekspresi' => 'required|string|max:6',
             ]);
 
@@ -29,7 +29,6 @@ class HasilController extends Controller
                 ], 400);
             }
 
-            // Hitung urutan gambar
             $urutan = Hasil::count() + 1;
 
             // Upload file gambar

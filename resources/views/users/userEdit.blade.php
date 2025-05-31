@@ -55,12 +55,12 @@
                                     <div class="card-body">
                                         <div class="card-header d-flex justify-content-end align-items-center">
 
-                                            <a href="{{ asset('users.userList') }}"
+                                            <a href="{{ asset('userList') }}"
                                                 class="btn btn-sm btn-outline-primary">List
                                                 User</a>
                                             <!-- <small class="text-muted float-end">Merged input group</small> -->
                                         </div>
-                                        <form action="{{ route('update', $user->id) }}" method="POST"
+                                        <form action="{{ route('users.update', $users->id) }}" method="POST"
                                             enctype="multipart/form-data">
 
                                             @csrf
@@ -72,16 +72,10 @@
                                                             Lengkap</label>
 
                                                         <div class="input-group input-group-merge">
-
-                                                            {{-- <input type="text" class="form-control  @error('username') is-invalid @enderror"
-                                                                id="basic-icon-default-fullname"
-                                                                placeholder="Inputkan Nama Sesi Ujian"
-                                                                aria-describedby="basic-icon-default-fullname2" /> --}}
-
                                                             <input type="text"
                                                                 class="form-control @error('name') is-invalid @enderror"
                                                                 id="name" name="name"
-                                                                value="{{ old('name') }}"
+                                                                value="{{ old('name', $users->name ?? '') }}"
                                                                 placeholder="Inputkan nama anda"
                                                                 aria-describedby="basic-icon-default-fullname2"
                                                                 required>
@@ -91,6 +85,7 @@
                                                                 </div>
                                                             @enderror
                                                         </div>
+
                                                     </div>
 
                                                     <div class="mb-3">
@@ -105,7 +100,8 @@
                                                             <input
                                                                 class="form-control @error('tgl_lahir') is-invalid @enderror"
                                                                 id="tgl_lahir" name="tgl_lahir" type="date"
-                                                                step="1" value="{{ old('tgl_lahir') }}"
+                                                                step="1"
+                                                                value="{{ old('tgl_lahir', $users->tgl_lahir ?? '') }}"
                                                                 placeholder="Pilih Tanggal" id="html5-date-input"
                                                                 required />
                                                             @error('tgl_lahir')
@@ -157,28 +153,28 @@
                                                     </div>
 
 
+                                                    <!-- Fix the Role dropdown section -->
                                                     <div class="mb-3">
-                                                        <label class="form-label" for="basic-icon-default-fullname">
-                                                            Role</label>
-                                                        <div class="input-group input-group-merge ">
-
-
-
+                                                        <label class="form-label"
+                                                            for="basic-icon-default-fullname">Role</label>
+                                                        <div class="input-group input-group-merge">
                                                             <select
-                                                                class="form-control @error('id') is-invalid @enderror"
-                                                                name="id_role">
-                                                                <option value="" disabled selected>Pilih Role
-                                                                </option>
+                                                                class="form-control @error('id_role') is-invalid @enderror"
+                                                                name="id_role" required>
+                                                                <option value="" disabled>Pilih Role</option>
                                                                 @foreach ($roles as $role)
                                                                     <option value="{{ $role->id }}"
-                                                                        {{ old('id') == $role->id ? 'selected' : '' }}>
+                                                                        {{ old('id_role', $users->id_role) == $role->id ? 'selected' : '' }}>
                                                                         {{ $role->role }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
+                                                            @error('id_role')
+                                                                <div class="alert alert-danger mt-2">{{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-
 
 
 
@@ -286,29 +282,7 @@
     {{-- SCRIPT --}}
     @include('include.script')
 
-    <script>
-        $(document).ready(function() {
-            // Inisialisasi Select2 pada elemen select
-            $('#exampleFormControlAdmin2').select2({
-                placeholder: "Pilih Akun Anda", // Placeholder jika belum dipilih
-                allowClear: true // Menambahkan opsi untuk menghapus pilihan
-            });
-        });
-        $(document).ready(function() {
-            // Inisialisasi Select2 pada elemen select
-            $('#exampleFormControlFilePaketSoal').select2({
-                placeholder: "Pilih Paket Soal", // Placeholder jika belum dipilih
-                allowClear: true // Menambahkan opsi untuk menghapus pilihan
-            });
-        });
-        $(document).ready(function() {
-            // Inisialisasi Select2 pada elemen select
-            $('#exampleFormControlFilePeserta').select2({
-                placeholder: "Pilih File Peserta", // Placeholder jika belum dipilih
-                allowClear: true // Menambahkan opsi untuk menghapus pilihan
-            });
-        });
-    </script>
+   
 
 </body>
 

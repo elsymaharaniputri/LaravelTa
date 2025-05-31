@@ -45,7 +45,7 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="text-center fw-bold text-purple py-3">Form <span class="text-primary"> Add
+                        <h4 class="text-center fw-bold text-purple py-3">Form <span class="text-primary"> Edit
                                 Audio</span></h4>
 
                         <!-- Basic Layout -->
@@ -61,9 +61,10 @@
                                         <div class="card-header d-flex justify-content-end align-items-center">
 
                                         </div>
-                                        <form action="{{ route('audio.storeAudio') }}" method="POST"
+                                        <form action="{{ route('audio.updateAudio', $audio->id) }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
+
                                             <div class="row mx-auto">
                                                 <div class="col-lg-12 col-md-12 mx-auto">
                                                     <div class="mb-3">
@@ -73,7 +74,8 @@
 
                                                             <input type="text"
                                                                 class="form-control @error('name_audio') is-invalid @enderror"
-                                                                name="name_audio" value="{{ old('name_audio') }}"
+                                                                name="name_audio"
+                                                                value="{{ old('name_audio', $audio->name_audio ?? '') }}"
                                                                 placeholder="Masukkan Nama Audio">
 
                                                             <!-- Error message -->
@@ -238,7 +240,6 @@
 
 
     @include('include.script')
-
 
 
 </body>

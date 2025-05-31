@@ -92,26 +92,26 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <div class="dropdown">
-                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                        data-bs-toggle="dropdown">
-                                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu">
+                                                <div class="btn-group">
+                                                    <!-- Tombol Edit -->
+                                                    <a href="{{ route('audio.editAudio', $audio->id) }}"
+                                                        class="btn btn-sm btn-outline-primary me-1">
+                                                        Edit
+                                                    </a>
 
-                                                        <a class="dropdown-item edit-btn" href="ekspresi-edit.html"
-                                                            target="_blank">
-                                                            <i class="bx bx-edit-alt me-1"></i> Edit
-                                                        </a>
-                                                        <a class="dropdown-item" href="javascript:void(0);"
-                                                            data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                            data-id="001-0920">
-                                                            <i class="bx bx-trash me-1"></i> Hapus
-                                                        </a>
-                                                    </div>
-
-
+                                                    <!-- Tombol Hapus -->
+                                                    <form method="POST"
+                                                        action="{{ route('audio.destroyAudio', $audio->id) }}"
+                                                        style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                            onclick="return confirm('Apakah Anda yakin ingin menghapus audio ini?')">
+                                                            Hapus
+                                                        </button>
+                                                    </form>
                                                 </div>
+
                                             </td>
 
 
@@ -136,31 +136,7 @@
                     </div>
                     <!-- / Content -->
 
-                    <!-- Delete Confirmation Modal -->
-                    <div class="modal fade" id="deleteModal" aria-labelledby="modalToggleLabel" tabindex="-1"
-                        style="display: none" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content ">
-                                <div class="modal-header bg-primary text-center d-flex justify-content-center ">
-                                    <h5 class="modal-title text-white " id="deleteModal">Konfirmasi Hapus Data</h5>
-                                    <button type="button" class="btn-close position-absolute end-0 me-2"
-                                        data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body text-center">Apakah anda yakin untuk hapus item ini ?
-                                </div>
-                                <div class="modal-footer d-flex justify-content-center">
-                                    <button class="btn btn-secondary w-25" data-bs-target="#modalToggle2"
-                                        data-bs-toggle="modal" data-bs-dismiss="modal">
-                                        Batal
-                                    </button>
-                                    <button class="btn btn-danger w-25" data-bs-target="#modalToggle2"
-                                        data-bs-toggle="modal" data-bs-dismiss="modal">
-                                        Hapus
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
 
 
 
@@ -200,25 +176,6 @@
                 //     "lengthMenu": "Show _MENU_ entries"
                 // }
             });
-        });
-
-        // Event listener for the delete button
-        $(document).on('click', '[data-bs-toggle="modal"][data-bs-target="#deleteModal"]', function() {
-            const itemId = $(this).data('id'); // Get the ID from the data attribute
-            $('#confirmDelete').data('id', itemId); // Store the ID in the confirm button
-        });
-
-        // Event listener for the confirm delete button
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('confirmDelete').addEventListener('click', function() {
-                const itemId = $(this).data('id'); // Get the stored ID
-                // Perform the delete action here (e.g., make an AJAX call to delete the item)
-                alert("Item with ID " + itemId + " deleted!"); // Replace this with your actual delete logic
-                // Optionally, you can hide the modal after confirmation
-                var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-                deleteModal.hide();
-            });
-
         });
     </script>
 

@@ -142,8 +142,10 @@ class AdminController extends Controller
         //get product by ID
         $users = User::findOrFail($id);
 
-        //render view with product
-        return view('users.userEdit', compact('users'));
+         // Get all roles for dropdown
+    $roles = Roles::all(); // Make sure to import the Roles model at top
+    
+    return view('users.userEdit', compact('users', 'roles'));
     }
 
 //UPDATE
@@ -178,6 +180,20 @@ public function update(Request $request, $id): RedirectResponse
         return redirect()->route('users.userList')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
+ 
+    //DELETE
+    public function destroy($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'User tidak ditemukan.');
+        }
+
+        $user->delete();
+
+        return redirect()->route('users.userList')->with('success', 'User berhasil dihapus.');
+    }
  
         
     }
