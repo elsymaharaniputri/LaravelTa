@@ -40,7 +40,7 @@ class AudioController extends Controller
         $request->validate([
             'name_audio' => 'required',
             'id_ekspresi' => 'required',
-             'file_audio' => 'nullable|file|mimes:mp3,wav',
+             'file_audio' => 'nullable|file|mimes:mp3,wav,ogg|max:10240',
        
         ]);
       $file_audio = null;
